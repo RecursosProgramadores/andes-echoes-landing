@@ -8,6 +8,7 @@ import { Tickets } from '@/components/Tickets';
 import { Availability } from '@/components/Availability';
 import { Hotels } from '@/components/Hotels';
 import { Testimonials } from '@/components/Testimonials';
+import { Blog } from '@/components/Blog';
 import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
@@ -26,6 +27,7 @@ const Index = () => {
         <Availability />
         <Hotels />
         <Testimonials />
+        <Blog />
         <Contact />
       </main>
       <Footer />
