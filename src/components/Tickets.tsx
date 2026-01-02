@@ -17,41 +17,95 @@ export function Tickets() {
   return (
     <section className="py-20 lg:py-32 bg-background">
       <div className="container mx-auto px-4">
-        <div ref={ref} className={`max-w-3xl mx-auto text-center fade-in-section ${isVisible ? 'visible' : ''}`}>
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gold/10 mb-6">
-            <Ticket className="w-8 h-8 text-gold" />
-          </div>
-          
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-accent mb-6">
-            {t('tickets.title')}
-          </h2>
-          
-          <p className="font-body text-lg text-muted-foreground leading-relaxed mb-8">
-            {t('tickets.text')}
-          </p>
+        <div
+          ref={ref}
+          className={`fade-in-section ${isVisible ? 'visible' : ''}`}
+        >
+          <div className="max-w-5xl mx-auto bg-white/5 border border-white/10 backdrop-blur-sm rounded-2xl shadow-card p-8 lg:p-10">
+            <div className="flex flex-col items-center text-center mb-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gold/10 mb-4">
+                <Ticket className="w-8 h-8 text-gold" />
+              </div>
+              <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-accent mb-4">
+                Entradas y Asesoría
+              </h2>
+              <p className="font-body text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl">
+                Si bien nosotros ofrecemos los tours, los visitantes deben adquirir algunas entradas por su cuenta. Te asesoramos y, si prefieres, gestionamos la compra con un costo de servicio.
+              </p>
+            </div>
 
-          {/* Ticket Links */}
-          <div className="flex flex-wrap justify-center gap-4 mb-8">
-            {ticketLinks.map(({ name, url }) => (
-              <a
-                key={name}
-                href={url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 bg-muted rounded-full text-sm font-medium text-foreground hover:bg-gold hover:text-gold-foreground transition-colors"
-              >
-                {name}
-                <ExternalLink className="w-4 h-4" />
+            <div className="grid md:grid-cols-3 gap-4 mb-10">
+              {[
+                {
+                  title: 'Comprar online',
+                  body: 'Asegura tu ingreso antes de viajar: elige fecha y horario en la web oficial.',
+                },
+                {
+                  title: 'Al llegar a Cusco',
+                  body: 'Compra presencial, sujeta a disponibilidad en taquilla local.',
+                },
+                {
+                  title: 'Nosotros gestionamos',
+                  body: 'Tramitamos por ti con un costo de servicio adicional y confirmamos tus horarios.',
+                },
+              ].map((item) => (
+                <div
+                  key={item.title}
+                  className="rounded-xl border border-white/10 bg-black/40 p-5 shadow-card"
+                >
+                  <h3 className="font-heading text-xl text-white mb-2">{item.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{item.body}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-4 mb-10">
+              <div className="rounded-xl border border-white/10 bg-black/40 p-5 shadow-card">
+                <h4 className="font-heading text-lg text-white mb-2">Machu Picchu</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                  Compra tu Boleto Machu Picchu en el sitio oficial para asegurar cupo y horario.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={ticketLinks[0].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 text-sm text-white hover:bg-gold hover:text-gold-foreground transition-colors"
+                  >
+                    {ticketLinks[0].name}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-white/10 bg-black/40 p-5 shadow-card">
+                <h4 className="font-heading text-lg text-white mb-2">BTC (Boleto Turístico)</h4>
+                <p className="text-sm text-muted-foreground leading-relaxed mb-3">
+                  Acceso a museos e iglesias. Indispensable para circuitos de Valle Sagrado y City Tour.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  <a
+                    href={ticketLinks[1].url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 text-sm text-white hover:bg-gold hover:text-gold-foreground transition-colors"
+                  >
+                    {ticketLinks[1].name}
+                    <ExternalLink className="w-4 h-4" />
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+                <Button size="lg" className="whatsapp-btn gap-2">
+                  <MessageCircle className="w-5 h-5" />
+                  ¿Necesitas ayuda?
+                </Button>
               </a>
-            ))}
+            </div>
           </div>
-
-          <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
-            <Button size="lg" className="whatsapp-btn gap-2">
-              <MessageCircle className="w-5 h-5" />
-              {t('tickets.help')}
-            </Button>
-          </a>
         </div>
       </div>
     </section>

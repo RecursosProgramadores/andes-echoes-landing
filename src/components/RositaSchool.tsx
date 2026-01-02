@@ -33,13 +33,16 @@ export function RositaSchool() {
             </p>
 
             {/* Features */}
-            <div className="flex justify-center md:justify-start gap-6 mb-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8 max-w-3xl mx-auto md:mx-0">
               {features.map(({ icon: Icon, text }) => (
-                <div key={text} className="flex flex-col items-center">
-                  <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center mb-2">
+                <div
+                  key={text}
+                  className="flex flex-col items-center rounded-xl border border-gold/40 bg-white/5 backdrop-blur-sm shadow-card px-4 py-5"
+                >
+                  <div className="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center mb-3">
                     <Icon className="w-6 h-6 text-gold" />
                   </div>
-                  <span className="text-sm text-muted-foreground">{text}</span>
+                  <span className="text-sm font-semibold text-foreground text-center">{text}</span>
                 </div>
               ))}
             </div>

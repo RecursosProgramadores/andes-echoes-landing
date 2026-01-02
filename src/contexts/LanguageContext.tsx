@@ -20,8 +20,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.quote': 'Get Quote',
     
     // Hero
-    'hero.tagline': 'Eternal Memories in the Andes',
-    'hero.subtitle': 'Private Tours & Cultural Immersion',
+    'hero.tagline': 'Eternal Memories in the Andes: Private Tours & Cultural Immersion',
+    'hero.subtitle': '',
     'hero.cta': 'Contact via Chat',
     
     // About
@@ -102,8 +102,8 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.quote': 'Cotiza Ahora',
     
     // Hero
-    'hero.tagline': 'Recuerdos Eternos en los Andes',
-    'hero.subtitle': 'Tours Privados e Inmersión Cultural',
+    'hero.tagline': 'Recuerdos Eternos en los Andes: Tours Privados e Inmersión Cultural',
+    'hero.subtitle': '',
     'hero.cta': 'Contacta por Chat',
     
     // About

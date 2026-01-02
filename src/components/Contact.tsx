@@ -1,11 +1,15 @@
 import { useState } from 'react';
-import { MapPin, Phone, Mail, Facebook, Send } from 'lucide-react';
+import { format } from 'date-fns';
+import { DateRange } from 'react-day-picker';
+import { MapPin, Phone, Mail, Facebook, Send, Calendar as CalendarIcon } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useScrollAnimation } from '@/hooks/useScrollAnimation';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
 import { useToast } from '@/hooks/use-toast';
 
 const tourOptions = [
@@ -23,6 +27,7 @@ export function Contact() {
   const { ref, isVisible } = useScrollAnimation();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,6 +44,16 @@ export function Contact() {
     setIsSubmitting(false);
     (e.target as HTMLFormElement).reset();
   };
+
+  const formattedRange = (() => {
+    if (dateRange?.from && dateRange.to) {
+      return `${format(dateRange.from, 'MMM d, yyyy')} - ${format(dateRange.to, 'MMM d, yyyy')}`;
+    }
+    if (dateRange?.from) {
+      return format(dateRange.from, 'MMM d, yyyy');
+    }
+    return '';
+  })();
 
   return (
     <section id="contact" className="py-20 lg:py-32 bg-background">
@@ -79,13 +94,27 @@ export function Contact() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="dates">{t('contact.dates')}</Label>
-                    <Input
-                      id="dates"
-                      name="dates"
-                      type="text"
-                      className="mt-1"
-                      placeholder="Jan 15-20, 2026"
-                    />
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className="mt-1 w-full justify-start text-left font-normal border-white/15 bg-black/30 hover:bg-black/40"
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {formattedRange ? formattedRange : 'Elige fechas'}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0 bg-card border border-white/10 shadow-card" align="start">
+                        <Calendar
+                          initialFocus
+                          mode="range"
+                          selected={dateRange}
+                          onSelect={setDateRange}
+                          numberOfMonths={1}
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    <input type="hidden" name="dates" value={formattedRange} />
                   </div>
                   <div>
                     <Label htmlFor="people">{t('contact.people')}</Label>

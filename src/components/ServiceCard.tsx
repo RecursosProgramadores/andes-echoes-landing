@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { MessageCircle, Images, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { MessageCircle, Images, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
@@ -10,15 +10,31 @@ interface ServiceCardProps {
   image: string;
   price?: string;
   galleryImages?: string[];
+  itinerary?: string;
 }
 
 const WHATSAPP_LINK = 'https://wa.me/51949992147';
 
-export function ServiceCard({ titleKey, descKey, image, price, galleryImages = [] }: ServiceCardProps) {
+export function ServiceCard({ titleKey, descKey, image, price, galleryImages = [], itinerary }: ServiceCardProps) {
   const { t } = useLanguage();
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const whatsappMessage = encodeURIComponent(`Hi! I'm interested in the ${t(titleKey)} tour.`);
+
+  useEffect(() => {
+    if (!isGalleryOpen) {
+      setCurrentIndex(0);
+    }
+  }, [isGalleryOpen]);
+
+  const showPrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? galleryImages.length - 1 : prev - 1));
+  };
+
+  const showNext = () => {
+    setCurrentIndex((prev) => (prev === galleryImages.length - 1 ? 0 : prev + 1));
+  };
 
   return (
     <>
@@ -55,7 +71,7 @@ export function ServiceCard({ titleKey, descKey, image, price, galleryImages = [
             >
               <Button className="w-full whatsapp-btn gap-2 text-sm">
                 <MessageCircle className="w-4 h-4" />
-                {t('services.whatsapp')}
+                WhatsApp
               </Button>
             </a>
             {galleryImages.length > 0 && (
@@ -65,7 +81,7 @@ export function ServiceCard({ titleKey, descKey, image, price, galleryImages = [
                 className="gap-2 text-sm border-gold text-gold hover:bg-gold hover:text-gold-foreground"
               >
                 <Images className="w-4 h-4" />
-                {t('services.gallery')}
+                Tours
               </Button>
             )}
           </div>
@@ -75,23 +91,60 @@ export function ServiceCard({ titleKey, descKey, image, price, galleryImages = [
       {/* Gallery Modal */}
       <Dialog open={isGalleryOpen} onOpenChange={setIsGalleryOpen}>
         <DialogContent className="max-w-4xl p-0 overflow-hidden">
-          <DialogTitle className="sr-only">{t(titleKey)} Gallery</DialogTitle>
-          <div className="relative">
+          <DialogTitle className="sr-only">{t(titleKey)} Tours</DialogTitle>
+          <div className="relative bg-black">
             <button
               onClick={() => setIsGalleryOpen(false)}
               className="absolute top-4 right-4 z-10 p-2 bg-background/80 rounded-full"
             >
               <X className="w-5 h-5" />
             </button>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 p-2">
-              {galleryImages.map((img, idx) => (
-                <img
-                  key={idx}
-                  src={img}
-                  alt={`${t(titleKey)} ${idx + 1}`}
-                  className="w-full h-64 object-cover rounded-lg"
-                />
-              ))}
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="relative w-full h-[320px] md:h-[460px] flex items-center justify-center bg-black">
+                {galleryImages.length > 0 && (
+                  <img
+                    key={currentIndex}
+                    src={galleryImages[currentIndex]}
+                    alt={`${t(titleKey)} ${currentIndex + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                )}
+                {galleryImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={showPrev}
+                      className="absolute left-3 top-1/2 -translate-y-1/2 bg-background/70 text-foreground p-2 rounded-full hover:bg-background"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={showNext}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 bg-background/70 text-foreground p-2 rounded-full hover:bg-background"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                      {galleryImages.map((_, idx) => (
+                        <span
+                          key={idx}
+                          className={`h-2 w-2 rounded-full ${
+                            idx === currentIndex ? 'bg-gold' : 'bg-white/50'
+                          }`}
+                        />
+                      ))}
+                    </div>
+                  </>
+                )}
+              </div>
+              <div className="p-6 md:p-8 bg-background text-foreground max-h-[460px] overflow-y-auto">
+                <h3 className="font-heading text-2xl text-accent mb-3">{t(titleKey)}</h3>
+                <p className="text-sm text-muted-foreground mb-4">{t(descKey)}</p>
+                {itinerary && itinerary.trim() && (
+                  <div className="space-y-3 text-sm leading-relaxed text-foreground/90 whitespace-pre-line">
+                    {itinerary}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </DialogContent>

@@ -31,22 +31,21 @@ export function About() {
               {t('about.title')}
             </h2>
             <p className="font-body text-lg md:text-xl text-muted-foreground leading-relaxed">
-              {t('about.text')}
+              Nuestra Historia
+              Somos una familia cusqueña dedicada a compartir la magia de los Andes con el mundo. Con más de 20 años de experiencia, creamos itinerarios personalizados que van más allá del turismo convencional, conectándote con la verdadera esencia de nuestra cultura, historia y gente.
             </p>
-            <div className="mt-8 flex items-center justify-center md:justify-start gap-4">
-              <div className="text-center">
-                <span className="font-heading text-4xl text-gold">32</span>
-                <p className="text-sm text-muted-foreground">Years</p>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="bg-foreground/5 border border-gold/40 rounded-2xl px-6 py-5 shadow-card text-center">
+                <span className="font-heading text-4xl md:text-5xl text-gold">32</span>
+                <p className="text-sm uppercase tracking-wide text-muted-foreground">Years</p>
               </div>
-              <div className="w-px h-12 bg-border" />
-              <div className="text-center">
-                <span className="font-heading text-4xl text-gold">1000+</span>
-                <p className="text-sm text-muted-foreground">Tours</p>
+              <div className="bg-foreground/5 border border-gold/40 rounded-2xl px-6 py-5 shadow-card text-center">
+                <span className="font-heading text-4xl md:text-5xl text-gold">1000+</span>
+                <p className="text-sm uppercase tracking-wide text-muted-foreground">Tours</p>
               </div>
-              <div className="w-px h-12 bg-border" />
-              <div className="text-center">
-                <span className="font-heading text-4xl text-gold">5★</span>
-                <p className="text-sm text-muted-foreground">Rating</p>
+              <div className="bg-foreground/5 border border-gold/40 rounded-2xl px-6 py-5 shadow-card text-center">
+                <span className="font-heading text-4xl md:text-5xl text-gold">5★</span>
+                <p className="text-sm uppercase tracking-wide text-muted-foreground">Rating</p>
               </div>
             </div>
           </div>

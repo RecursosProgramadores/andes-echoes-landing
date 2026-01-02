@@ -61,15 +61,24 @@ export function Testimonials() {
   };
 
   return (
-    <section className="py-20 lg:py-32 bg-accent">
+    <section className="py-20 lg:py-32 bg-black">
       <div className="container mx-auto px-4">
         <div ref={ref} className={`fade-in-section ${isVisible ? 'visible' : ''}`}>
-          <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-accent-foreground text-center mb-4">
-            {t('testimonials.title')}
-          </h2>
-          <div className="w-24 h-1 bg-gold mx-auto mb-12" />
+          <div className="max-w-5xl mx-auto mb-10 text-center">
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl text-white mb-3">
+              {t('testimonials.title')}
+            </h2>
+            <p className="text-center text-muted-foreground mb-4">
+              Experiencias de viajeros que confiaron en nosotros.
+            </p>
+            <div className="flex items-center gap-4 justify-center">
+              <span className="h-px w-16 bg-white/20" />
+              <div className="w-24 h-1 bg-gold rounded-full" />
+              <span className="h-px w-16 bg-white/20" />
+            </div>
+          </div>
 
-          <div className="max-w-3xl mx-auto relative">
+          <div className="max-w-4xl mx-auto relative rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm shadow-card p-6 md:p-10">
             {/* Carousel */}
             <div className="relative overflow-hidden">
               <div
@@ -82,14 +91,14 @@ export function Testimonials() {
                     className="w-full flex-shrink-0 px-4"
                   >
                     <div className="text-center">
-                      <Quote className="w-12 h-12 text-gold/50 mx-auto mb-6" />
-                      <p className="font-body text-xl md:text-2xl text-accent-foreground/90 italic mb-6 leading-relaxed">
+                      <Quote className="w-14 h-14 text-gold/70 mx-auto mb-6" />
+                      <p className="font-body text-xl md:text-2xl text-white/90 italic mb-6 leading-relaxed">
                         "{language === 'en' ? testimonial.en : testimonial.es}"
                       </p>
-                      <div className="flex items-center justify-center gap-2">
+                      <div className="flex items-center justify-center gap-2 text-white/80">
                         <span className="font-heading text-lg text-gold">{testimonial.author}</span>
-                        <span className="text-accent-foreground/60">•</span>
-                        <span className="text-accent-foreground/60">{testimonial.location}</span>
+                        <span className="text-white/50">•</span>
+                        <span className="text-white/70">{testimonial.location}</span>
                       </div>
                     </div>
                   </div>
@@ -100,14 +109,14 @@ export function Testimonials() {
             {/* Navigation */}
             <button
               onClick={prev}
-              className="absolute left-0 top-1/2 -translate-y-1/2 p-2 text-accent-foreground/60 hover:text-gold transition-colors"
+              className="absolute left-2 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-gold transition-colors"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-8 h-8" />
             </button>
             <button
               onClick={next}
-              className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-accent-foreground/60 hover:text-gold transition-colors"
+              className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-white/60 hover:text-gold transition-colors"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-8 h-8" />
@@ -119,10 +128,10 @@ export function Testimonials() {
                 <button
                   key={index}
                   onClick={() => goTo(index)}
-                  className={`w-2 h-2 rounded-full transition-all ${
+                  className={`h-2 rounded-full transition-all ${
                     index === currentIndex
                       ? 'bg-gold w-6'
-                      : 'bg-accent-foreground/30 hover:bg-accent-foreground/50'
+                      : 'bg-white/30 hover:bg-white/60 w-2'
                   }`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
